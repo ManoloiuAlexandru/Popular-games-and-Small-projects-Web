@@ -26,6 +26,9 @@ In this repository you can find implementation of popular games and small projec
   - hand_value= that increase with the number on the card
   - money= this is the money that the player has at the start. 
   
+  ***Note: The functions buttons_reset and clean_and_reset from Game.js are for cleaning the web page.***
+  
   *Gameplay*</br>
   The game begins with the player geting 2 cards and the dealer get 2 cards. The player will not see his cards or the dealer's cards until he bet a number, if he bets a number bigger then he's money he will be asked to bet less money. 
   The game then is simple after the bet he will be asked if he wants to "stand" or if he wants to "hit". The "stand" option means that the if the dealer will have the hand_value<17 the dealer will draw cards until it gets over or equal to 17, then he's hand value will be calculated, with the player's class method "calculate_hand", then using the function "win_or_lose", which will check who won and return 1 if the player won, 2 if it is a draw or 0 if the dealer won. After we see who won the player will recive his bet * 2 back. If the player selects "hit" this will give him a new card. If with the new card he goes over 21 he lost, if the hand_value <21 he will have to choice again if he wants to "hit" or "stand", the game will end when he is out of money.
+
