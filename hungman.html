@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Welcome to Hangman</title>
+</head>
+<body onload="show_word()">
+<h1><center>Hangman</center></h1>
+<p>How you want to play ?</p>
+<button onclick="Mode1()" id="mode1">You start with no letters</button>
+<button onclick="Mode2()" id="mode2">You start with first and last letter</button>
+<p> The word to guess is:</p>
+<textarea id="word_to_quess" style="width:400px;height:40px"></textarea><br>
+<input type="letter_of_word" id="letter">
+<button onclick="Guess()" id="gueesbutton">Guess</button>
+<button onclick="Reset()" id="resetbutton">Reset</button>
+<p id="life"></p>
+<p id="result"></p>
+<script>
+document.getElementById("resetbutton").disabled = true;
+document.getElementById("gueesbutton").disabled = true;
+function Mode1()
+{
+	document.getElementById("gueesbutton").disabled = false;
+	document.getElementById("mode1").disabled=true;
+	document.getElementById("mode2").disabled=true;
+}
+function Mode2()
+{
+	document.getElementById("gueesbutton").disabled = false;
+	document.getElementById("mode1").disabled=true;
+	document.getElementById("mode2").disabled=true;
+	letters_tryed.push(word[0]);
+	letters_tryed.push(word[word.length-1]);
+	show_word();
+}
+function Guess()
+{
+	var letter;
+	letter=document.getElementById("letter").value;
+	if (letter.length==1)
+	{
+		if (word.includes(letter)==false)
+		{
+			life=life-1;
+		}
+		if (letters_tryed.includes(letter))
+		{
+			document.getElementById("result").innerHTML="Letter already used";
+			document.getElementById("letter").value="";
+		}
+		else
+		{
+		letters_tryed.push(letter);
+		show_word();
+		}
+	}
+	else if (letter=="")
+	{
+		document.getElementById("result").innerHTML="";
+		document.getElementById("letter").value="";
+	}
+	else
+	{
+		document.getElementById("result").innerHTML="You need to put just one letter";
+		document.getElementById("letter").value="";
+	}
+}
+function Reset()
+{
+	letters_tryed=[];
+	life=8;
+	full_word=0;
+	word = list_of_words[Math.floor(Math.random()*list_of_words.length)];
+	document.getElementById("gueesbutton").disabled = true;
+	document.getElementById("resetbutton").disabled = true;
+	document.getElementById("mode1").disabled=false;
+	document.getElementById("mode2").disabled=false;
+	show_word();
+	console.log(word);
+}
+</script>
+<script src="hungman.js"></script>
+</body>
+</html>
