@@ -32,7 +32,22 @@ In this repository you can find implementation of popular games and small projec
   The game begins with the player geting 2 cards and the dealer geting 2 cards. The player will not see his cards or the dealer's cards until he bet a number, if he bets a number bigger then he's money he will be asked to bet less money. 
   The game then is simple after the bet he will be asked if he wants to "stand" or if he wants to "hit". The "stand" option means that if the dealer will have the hand_value<17 the dealer will draw cards until it gets over or equal to 17, then he's hand value will be calculated, with the player's class method "calculate_hand", then using the function "win_or_lose", which will check who won and return 1 if the player won, 2 if it is a draw or 0 if the dealer won. After we see who won the player will recive his bet * 2 back. If the player selects "hit" this will give him a new card. If with the new card he goes over 21 he lose, if the hand_value <21 he will have to choice again if he wants to "hit" or "stand", the game will end when he is out of money.
 
+----------------------------------------------------------------------------------------------------------------------------------------
 
+## Hangman:
+  
+  Hangman is a paper and pencil guessing game for two or more players. One player thinks of a word, phrase or sentence and the other(s) tries to guess it by suggesting letters, within a certain number of guesses. [Wikipedia](https://en.wikipedia.org/wiki/Hangman_(game))
+
+  *Implementation*</br>
+  The implementation is in JavaScript and HTML. The list of words is used to define the word that the player has to guess. In order to get the word that the player has to guess the program uses the Javascript math object and takes a word from the list_of_words, which is a list. The variabile "full_word" which is used to see if the player has found the word or not, the initial value of this variable is 0, the chances to 1 when to player finds the word. 
+  
+  There are other variables like: 
+  - the life, which means the number of tryes that the player has, if this value gets to 0 and the player dosen't guess the word until then the game is over
+  - the letters_tryed, which is used to store all the letters that the player has tryed until now, this is used so that the player will not lose lives if he uses more then once a letter. 
+  
+  *Gameplay*</br>
+  The games start after the player choices what type of game he/she wants: 2 if the player wants to see the first and the last letter of the word or 1 if the player dosen't want to see any of the letters, after that he types what letter he wants to try. The game ends when the player is out of lifes or if he finds the word.  
+  
 ----------------------------------------------------------------------------------------------------------------------------------------
 
  ## Path_Convertor
