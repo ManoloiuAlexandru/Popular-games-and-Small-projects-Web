@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Welcome to the Path convertor</title>
+</head>
+<body>
+<h1><center>Path convertor</center></h1>
+<p> Path you want to convert:</p>
+<input type="text" id="path">
+<button onclick="Convert()">Convert for Python path</button>
+<p id="result"></p>
+<script>
+function Convert()
+{
+	var text=document.getElementById("path").value;
+	var i;
+	var result="";
+	for (i=0;i<text.length;i++)
+	{
+		if (text.charCodeAt(i)==92)
+		{
+			result=result+String.fromCharCode(92)+String.fromCharCode(92);
+		}
+		else
+		{
+			result=result+text[i];
+		}
+	}
+	document.getElementById("result").innerHTML=result;
+}
+</script>
+</body>
+</html>
