@@ -32,3 +32,16 @@ In this repository you can find implementation of popular games and small projec
   The game begins with the player geting 2 cards and the dealer geting 2 cards. The player will not see his cards or the dealer's cards until he bet a number, if he bets a number bigger then he's money he will be asked to bet less money. 
   The game then is simple after the bet he will be asked if he wants to "stand" or if he wants to "hit". The "stand" option means that if the dealer will have the hand_value<17 the dealer will draw cards until it gets over or equal to 17, then he's hand value will be calculated, with the player's class method "calculate_hand", then using the function "win_or_lose", which will check who won and return 1 if the player won, 2 if it is a draw or 0 if the dealer won. After we see who won the player will recive his bet * 2 back. If the player selects "hit" this will give him a new card. If with the new card he goes over 21 he lose, if the hand_value <21 he will have to choice again if he wants to "hit" or "stand", the game will end when he is out of money.
 
+
+----------------------------------------------------------------------------------------------------------------------------------------
+
+ ## Path_Convertor
+ 
+ The file URI scheme is a URI scheme defined in RFC 8089, typically used to retrieve files from within one's own computer.
+Previously the file URI scheme was specified in RFC 1630 and RFC 1738. The Internet Engineering Task Force (IETF) published RFC 8089, obsoleting these RFCs, with "a syntax based on the generic syntax of RFC 3986 that is compatible with most existing usages." [Wikipedia](https://en.wikipedia.org/wiki/File_URI_scheme)
+
+ *Implementation*</br>
+ The implementation is in JavaScript and HTML. 
+ 
+ *How it Works*</br>
+ After opening the web page there will be a filed where you will put your path to the file. After pressing the button "Convert for Python path" this will call the function "Convert" that will replace the \ with \\. After is done it will print on the screen the converted path.
