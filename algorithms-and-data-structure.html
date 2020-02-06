@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="the_sandbox.js"></script>
+<title>Welcome to the sandbox</title>
+</head>
+<body>
+<h1><center>The sandbox for javascript</center></h1>
+<input type="text" id="data">
+<button onclick="get_data()">Sort</button>
+<p id="result"></p>
+<p id="result_bubble"></p>
+<p id="result_insert"></p>
+<script>
+function get_data()
+{
+	arr=document.getElementById("data").value;
+	arr=arr.split(" ");
+	var i;
+	for (i=0;i<arr.length;i++)
+	{
+		arr[i]=parseInt(arr[i]);
+	}
+	arr_insert=arr.slice();;
+	arr_bubble=arr.slice();;
+	select_sort(arr);
+	bubble_sort(arr_bubble);
+	insertions_sort(arr_insert);
+	document.getElementById("result").innerHTML=arr+" with Select sort";
+	document.getElementById("result_bubble").innerHTML=arr_bubble+" with Bubble sort";
+	document.getElementById("result_insert").innerHTML=arr_insert+" with Insertion sort";
+}
+</script>
+<input type="text" id="search_elem">
+<button onclick="search()">Search</button>
+<p id="result_search"></p>
+<script>
+function search()
+{
+	var value_to_search=document.getElementById("search_elem").value;
+	search_for_elem(arr_bubble,value_to_search);
+}
+</script>
+</body>
+</html>
