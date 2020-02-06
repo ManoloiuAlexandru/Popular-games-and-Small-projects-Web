@@ -43,3 +43,14 @@ Third Pass:
 
 *Implementation*</br>
  The function bubble_sort take an array as a parameter and sorts it using the logic of the buuble sort.
+ 
+----------------------------------------------------------------------------------------------------------------------------------------
+## Insertion Sort
+
+Insertion sort is a simple sorting algorithm that works the way we sort playing cards in our hands. [Geeksforgeeks](https://www.geeksforgeeks.org/insertion-sort/)
+
+*Implementation*</br>
+The function insertions_sort take as parameter an array and sorts it by using the next method:<br>
+  - Iterate the array 
+  - At every element iterate from the element that is before him and go backwards.
+  - When you find an element that is smaller than the current number move all the elements from that number to the current number by  and put the current number to his position.
