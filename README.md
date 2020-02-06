@@ -54,3 +54,16 @@ The function insertions_sort take as parameter an array and sorts it by using th
   - Iterate the array 
   - At every element iterate from the element that is before him and go backwards.
   - When you find an element that is smaller than the current number move all the elements from that number to the current number by  and put the current number to his position.
+  
+ 
+----------------------------------------------------------------------------------------------------------------------------------------
+## Binary Search
+Binary Search
+Given a sorted array arr[] of n elements, write a function to search a given element x in arr[].
+A simple approach is to do linear search.The time complexity of above algorithm is O(n). Another approach to perform the same task is using Binary Search.
+
+Binary Search: Search a sorted array by repeatedly dividing the search interval in half. Begin with an interval covering the whole array. If the value of the search key is less than the item in the middle of the interval, narrow the interval to the lower half. Otherwise narrow it to the upper half. Repeatedly check until the value is found or the interval is empty. [Geeksforgeeks](https://www.geeksforgeeks.org/binary-search/)
+
+*Implementation*</br>
+The function search_for_elem takes two parameters the array where you want to search for the element and the elemnt you want to find. The function then checks if the element is in the middle of the array if not then he checks if it is bigger then it and then goes to the right of the element and recalls the function with the right side of the array split in half. If the element to search is smaller then the element in the middle then will recall the function with the left side of the array split in half.  
+
