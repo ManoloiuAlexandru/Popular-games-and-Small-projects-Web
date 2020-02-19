@@ -10,21 +10,33 @@
 </head>
 <body>
 <h1><center>Battle Resource</center></h1>
+<p id="player1_hp"></p>
 <p>Player1 hand:</p>
 <div id="hand_player1"></div>
-<p>The battlefield</p>
-<textarea id="battlefield" style="width:870px;height:460px"></textarea>
+<p>The battlefield for player 1</p>
+<div id="battlefield_for_player1"></div>
+<p id="separate_battle"></p>
+<p>The battlefield for player 2</p>
+<div id="battlefield_for_player2"></div>
 <p>Player2 hand:</p> 
 <div id="hand_player2"></div>
+<p id="player2_hp"></p>
 <script>
-player1=new Player(deck_for_test);
+var result="";
+var i;
+for (i=0;i<85;i++)
+{
+	result=result+"----";
+}
+document.getElementById("separate_battle").innerHTML=result;
+document.getElementById("player1_hp").innerHTML="HP of player1:"+player1.hp;
+document.getElementById("player2_hp").innerHTML="HP of player2:"+player2.hp;
 player1.hand=player1.deck.slice(0,5);
 console.log(player1);
-player1.print_hand("hand_player1");
-player2=new Player(deck_for_test);
+player1.print_hand("hand_player1","battlefield_for_player1");
 player2.hand=player2.deck.slice(0,5);
 console.log(player2);
-player2.print_hand("hand_player2");
+player2.print_hand("hand_player2","battlefield_for_player2");
 </script>
 </body>
 </html>
