@@ -4,13 +4,15 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Welcome to Battle Resource</title>
-<script src="Game.js"></script>
+<script src="Creatures.js"></script>
 <script src="Library.js"></script>
 <script src="Player.js"></script>
+<script src="Game.js"></script>
 </head>
 <body>
 <h1><center>Battle Resource</center></h1>
 <p id="player1_hp"></p>
+<button id="player1" onclick="End_turn(this.id)">End_Turn</button>
 <p>Player1 hand:</p>
 <div id="hand_player1"></div>
 <p>The battlefield for player 1</p>
@@ -21,7 +23,13 @@
 <p>Player2 hand:</p> 
 <div id="hand_player2"></div>
 <p id="player2_hp"></p>
+<button id="player2" onclick="End_turn(this.id)">End_Turn</button>
 <script>
+document.getElementById("player2").disabled =true;
+function End_turn(id_player)
+{
+	end_turn(id_player);
+}
 var result="";
 var i;
 for (i=0;i<85;i++)
@@ -32,9 +40,11 @@ document.getElementById("separate_battle").innerHTML=result;
 document.getElementById("player1_hp").innerHTML="HP of player1:"+player1.hp;
 document.getElementById("player2_hp").innerHTML="HP of player2:"+player2.hp;
 player1.hand=player1.deck.slice(0,5);
+player1.deck.splice(0,5);
 console.log(player1);
 player1.print_hand("hand_player1","battlefield_for_player1");
 player2.hand=player2.deck.slice(0,5);
+player2.deck.splice(0,5);
 console.log(player2);
 player2.print_hand("hand_player2","battlefield_for_player2");
 </script>
