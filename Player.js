@@ -7,9 +7,15 @@ class Player
 		this.hp=20;
 		this.creature_on_field=[];
 		this.creature_can_attack=[];
+		this.creature_graveyard=[];
 	}
 	print_hand(players_turn,battle_for_player)
 	{
+		var div=document.getElementById(players_turn);
+		while (div.firstChild)
+		{
+			div.removeChild(div.firstChild);
+		}
 		var i;
 		var result="";
 		var cards_played=0;
@@ -80,7 +86,6 @@ function draw_a_card(player_to_draw)
 {
 	player_to_draw.hand.push(player_to_draw.deck.slice(0,1)[0]);
 	player_to_draw.deck.splice(0,1);
-	console.log(player_to_draw);
 }
 player1=new Player(deck_for_test_player1);
 player2=new Player(deck_for_test_player2);
