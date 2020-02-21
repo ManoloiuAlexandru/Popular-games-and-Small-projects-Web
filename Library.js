@@ -6,6 +6,8 @@ Creatures=
 [0,3,3,"Knight","Soldier",[]],
 [0,1,5,"Gate Guard","Soldier",["Guard"]],
 [0,3,1,"Cavalry","Soldier",["Rush"]],
+[0,1,1,"Scout","Soldier",["Draw a card"]],
+[0,2,3,"Paladin","Soldier",["When a friendly soldier dies get+1/+1"]],
 ]
 
 var deck_for_test_player1=[];
