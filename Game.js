@@ -85,14 +85,17 @@ function pick_target(battle_for_player,id_of_card)
 		{
 			if (player1.creature_on_field[i].value.includes(target) && player1.creature_on_field[i].value.includes("Guard"))
 			{
-				battle(player2.creature_on_field[i],target,player1,player2);
 				in_the_field=1;
 				break;
 			}
 		}
 		if (in_the_field==0)
 		{
-		alert("That is not a gurad!!");
+		alert("That is not a Guard!!");
+		}
+		else if (in_the_field==1)
+		{
+			battle(id_of_card,target,player1,player2);
 		}
 	}
 	else if (battle_for_player=="battlefield_for_player1")
@@ -101,14 +104,17 @@ function pick_target(battle_for_player,id_of_card)
 		{
 			if (player2.creature_on_field[i].value.includes(target) && player2.creature_on_field[i].value.includes("Guard"))
 			{
-				battle(player1.creature_on_field[i],target,player1,player2);
 				in_the_field=1;
 				break;
 			}
 		}
 		if (in_the_field==0)
 		{
-		alert("That is not a gurad!!");
+		alert("That is not a Guard!!");
+		}
+		else if (in_the_field==1)
+		{
+			battle(id_of_card,target,player2,player1);
 		}
 	}
 }
@@ -124,7 +130,7 @@ function battle(creature,target,player_attaked,player_attacking)
 	console.log(player2);
 	for (i=0;i<player_attacking.creature_on_field.length;i++)
 	{
-		if (player_attacking.creature_on_field[i]==creature)
+		if (player_attacking.creature_on_field[i].id==creature)
 		{
 			the_attacking_creature=player_attacking.creature_on_field[i];
 			index_of_attacking_creature=i;
@@ -150,18 +156,51 @@ function battle(creature,target,player_attaked,player_attacking)
 	Attack_attack=Attacking_attack_hp[0]
 	Attack_hp=Attacking_attack_hp[Attacking_attack_hp.length-1];
 	
-	if (Def_hp<=Attack_attack)
+	if (parseInt(Def_hp)<=parseInt(Attack_attack))
 	{
 		player_attaked.creature_graveyard.push(player_attaked.creature_on_field[index_of_defending_creature]);
 		player_attaked.creature_on_field.splice(index_of_defending_creature,1);
 		player_attaked.creature_can_attack.splice(index_of_defending_creature,1);
 	}
-	if (Attack_hp<=Def_attack)
+	if (parseInt(Attack_hp)<=parseInt(Def_attack))
 	{
 		player_attacking.creature_graveyard.push(player_attacking.creature_on_field[index_of_attacking_creature]);
 		player_attacking.creature_on_field.splice(index_of_attacking_creature,1);
 		player_attacking.creature_can_attack.splice(index_of_attacking_creature,1);
 	}
+	if (parseInt(Def_hp)>parseInt(Attack_attack))
+	{
+		Def_hp=Def_hp-Attack_attack;
+		after_battle=Def_attack+"  "+Def_hp;
+		//console.log(the_defending_creature.value);
+		update_status_of_card=the_defending_creature.value.split("\n");
+		update_status_of_card[2]=after_battle;
+		var i=0;
+		var final_status="";
+		for (i=0;i<update_status_of_card.length;i++)
+		{
+			final_status=final_status+update_status_of_card[i]+"\n";
+		}
+		the_defending_creature.value=final_status;
+		//console.log(the_defending_creature);
+		the_defending_creature.innerHTML=final_status;
+		
+		Attack_hp=Attack_hp-Def_attack;
+		after_battle=Attack_attack+"  "+Attack_hp;
+		//console.log(the_defending_creature.value);
+		update_status_of_card=the_attacking_creature.value.split("\n");
+		update_status_of_card[2]=after_battle;
+		var i=0;
+		var final_status="";
+		for (i=0;i<update_status_of_card.length;i++)
+		{
+			final_status=final_status+update_status_of_card[i]+"\n";
+		}
+		the_attacking_creature.value=final_status;
+		//console.log(the_defending_creature);
+		the_attacking_creature.innerHTML=final_status;
+	}
+	
 	//console.log(player1);
 	//console.log(player2);
 	clean_board();
