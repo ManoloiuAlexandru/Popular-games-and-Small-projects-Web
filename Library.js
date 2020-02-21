@@ -1,9 +1,10 @@
 Creatures=
 [
 [0,1,1,"Peasant","Soldier",[]],
-//[0,999,999,"Alex","Soldier",["Guard","Draw a card","Nobel","Rush"]],
+//[0,999,99999,"Alex","Soldier",["Guard","Draw a card","Nobel","Rush"]],
 [0,2,1,"Archer","Soldier",[]],
-[0,1,3,"Knight","Soldier",[]],
+[0,3,3,"Knight","Soldier",[]],
+[0,1,5,"Gate Guard","Soldier",["Guard"]],
 ]
 
 var deck_for_test_player1=[];
