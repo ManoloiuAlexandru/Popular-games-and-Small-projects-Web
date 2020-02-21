@@ -45,9 +45,14 @@ function play_it(id_of_card,battle_for_player)
 		action(this.id,battle_for_player);
 	}
 	Style_cards(card_on_field);
-	card_on_field.setAttribute("disabled","true");
+	card_on_field.setAttribute("disabled","false");
 	card_on_field.innerHTML=document.getElementById(id_of_card).value;
 	card_on_field.value=document.getElementById(id_of_card).value;
+	
+	if (card_on_field.value.includes("Rush"))
+	{
+		card_on_field.disabled=false;
+	}
 	document.getElementById(battle_for_player).appendChild(card_on_field);
 	
 	if (battle_for_player=="battlefield_for_player1")
