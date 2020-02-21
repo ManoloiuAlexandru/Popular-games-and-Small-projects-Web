@@ -37,3 +37,4 @@ class Creature
 		return result;
 	}
 }
+
