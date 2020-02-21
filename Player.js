@@ -30,6 +30,7 @@ class Player
 			}
 			card_to_play.innerHTML=result;
 			card_to_play.value=result;
+			Style_cards(card_to_play);
 			document.getElementById(players_turn).appendChild(card_to_play);
 		}
 	}
@@ -43,6 +44,7 @@ function play_it(id_of_card,battle_for_player)
 	{
 		action(this.id,battle_for_player);
 	}
+	Style_cards(card_on_field);
 	card_on_field.setAttribute("disabled","true");
 	card_on_field.innerHTML=document.getElementById(id_of_card).value;
 	card_on_field.value=document.getElementById(id_of_card).value;
@@ -89,4 +91,3 @@ function draw_a_card(player_to_draw)
 }
 player1=new Player(deck_for_test_player1);
 player2=new Player(deck_for_test_player2);
-
