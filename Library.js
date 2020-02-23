@@ -8,8 +8,17 @@ Creatures=
 [0,3,1,"Cavalry","Soldier",["Rush( creature with rush can attack in the same turn)"]],
 /*[0,1,1,"Scout","Soldier",["Draw a card"]],
 [0,2,3,"Paladin","Soldier",["When a friendly soldier dies get+1/+1"]],
-[0,3,8,"Royal Guard","Soldier",["Guard","Draw a card"]],
-[0,3,3,"Knight Champion","Soldier",["When you summon a soldier get +1/+1"]],*/
+[0,4,6,"Royal Guard","Soldier",["Guard","Draw a card"]],
+[0,3,3,"Knight Champion","Soldier",["When you summon a soldier get +1/+1"]],
+[0,3,5,"Guard Captain","Soldier",["When summon all creatures with guard get +1/+2"]],
+[0,0,3,"Flag Carrier","Soldier",["While Flag Carrier is on the filed all soldiers get +2/+1"]],
+[0,2,2,"Priest","Soldier",["When summon pick a friendly creature give that creature +0/+3"]],
+[0,5,5,"Adrian, The friendly",["When summon pick a friendly soldier, give that creature +3/+3 Guard and Rush"]],
+[0,1,1,"Bard",["While Bard is on the filed all friendly creatures get +1/0"]],
+[0,3,5,"Teutonic Knight",["When a friendly soldier takes damage Teutonic Knight will get +1/+0"]],
+[0,3,4,"Billmen",["While Billmen is on the field enemy creatures lose Rush"]],
+[0,7,7,"Cataphract"[]],
+[0,6,2,"Halberdier"["Halberdier can't be attacked by creatures with 3 or more attack"]]*/
 ]
 
 var deck_for_test_player1=[];
