@@ -20,13 +20,19 @@ Creatures=
 [0,7,7,"Cataphract"[]],
 [0,6,2,"Halberdier"["Halberdier can't be attacked by creatures with 3 or more attack"]]*/
 ]
-
+Spells=
+[
+[0,"Let's ride","All frienldy creatures get Rush"],
+]
 var deck_for_test_player1=[];
 var i;
 for (i=0;i<25;i++)
 {
 creature_pick=Creatures[Math.floor(Math.random() * Creatures.length)];
 card=new Creature(creature_pick[0],creature_pick[1],creature_pick[2],creature_pick[3],creature_pick[4],creature_pick[5]);
+deck_for_test_player1.push(card);
+spell_pick=Spells[Math.floor(Math.random()*Spells.length)];
+card=new Spell(spell_pick[0],spell_pick[1],spell_pick[2]);
 deck_for_test_player1.push(card);
 }
 
@@ -35,5 +41,8 @@ for (i=0;i<25;i++)
 {
 creature_pick=Creatures[Math.floor(Math.random() * Creatures.length)];
 card=new Creature(creature_pick[0],creature_pick[1],creature_pick[2],creature_pick[3],creature_pick[4],creature_pick[5]);
+deck_for_test_player2.push(card);
+spell_pick=Spells[Math.floor(Math.random()*Spells.length)];
+card=new Spell(spell_pick[0],spell_pick[1],spell_pick[2]);
 deck_for_test_player2.push(card);
 }
