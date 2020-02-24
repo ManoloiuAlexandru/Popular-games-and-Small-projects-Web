@@ -22,19 +22,38 @@ class Player
 		var non_attr_result="";
 		for (i=0;i<this.hand.length;i++)
 		{
-			result=this.hand[i].print_creature();
-			non_attr_result=this.hand[i].print_non_attrib();
-			var card_to_play=document.createElement("Button");
-			card_to_play.setAttribute("id","Card"+players_turn+i);
-			card_to_play.setAttribute("title",result);
-			card_to_play.onclick=function()
+			try
 			{
-				play_it(this.id,battle_for_player);
+				result=this.hand[i].print_creature();
+				non_attr_result=this.hand[i].print_non_attrib();
+				var card_to_play=document.createElement("Button");
+				card_to_play.setAttribute("id","Card"+players_turn+i);
+				card_to_play.setAttribute("title",result);
+				card_to_play.onclick=function()
+				{
+					play_it(this.id,battle_for_player);
+				}
+				card_to_play.innerHTML=non_attr_result;
+				card_to_play.value=result;
+				Style_cards(card_to_play);
+				document.getElementById(players_turn).appendChild(card_to_play);
 			}
-			card_to_play.innerHTML=non_attr_result;
-			card_to_play.value=result;
-			Style_cards(card_to_play);
-			document.getElementById(players_turn).appendChild(card_to_play);
+			catch(err)
+			{
+				result=this.hand[i].print_effect();
+				non_attr_result=this.hand[i].print_spell();
+				var card_to_play=document.createElement("Button");
+				card_to_play.setAttribute("id","Card"+players_turn+i);
+				card_to_play.setAttribute("title",result);
+				card_to_play.onclick=function()
+				{
+					Cast_spell(this.id,battle_for_player);
+				}
+				card_to_play.innerHTML=non_attr_result;
+				card_to_play.value=non_attr_result+" "+result;
+				Style_cards(card_to_play);
+				document.getElementById(players_turn).appendChild(card_to_play);
+			}
 		}
 	}
 }
@@ -61,36 +80,24 @@ function play_it(id_of_card,battle_for_player)
 	if (battle_for_player=="battlefield_for_player1")
 	{
 		player1.creature_on_field.push(card_on_field);
-		var i;
-		for (i=0;i<player1.hand.length;i++)
-		{
-			discard_text=document.getElementById(id_of_card).value;
-			if (discard_text.includes(player1.hand[i].name))
-			{
-				player1.hand.splice(i,1);
-				break;
-			}
-		}
+		remove_card_from_hand(id_of_card,"hand1");
 	}
 	else
 	{
 		player2.creature_on_field.push(card_on_field);
-		var i;
-		for (i=0;i<player2.hand.length;i++)
-		{
-			discard_text=document.getElementById(id_of_card).value;
-			if (discard_text.includes(player2.hand[i].name))
-			{
-				player2.hand.splice(i,1);
-				break;
-			}
-		}
+		remove_card_from_hand(id_of_card,"hand2");
 	}
 	document.getElementById(id_of_card).remove();
 }
 function action(id_of_card,battle_for_player)
 {
+	if (from_spell_click==1)
+	{
+	}
+	else
+	{
 	action_to_do(id_of_card,battle_for_player);
+	}
 }
 function draw_a_card(player_to_draw)
 {
