@@ -149,6 +149,7 @@ function pick_target(battle_for_player,id_of_card)
 		}
 		else if (in_the_field==1)
 		{
+			document.getElementById(id_of_card).disabled=true;
 			battle(id_of_card,target,player1,player2);
 		}
 	}
@@ -168,6 +169,7 @@ function pick_target(battle_for_player,id_of_card)
 		}
 		else if (in_the_field==1)
 		{
+			document.getElementById(id_of_card).disabled=true;
 			battle(id_of_card,target,player2,player1);
 		}
 	}
