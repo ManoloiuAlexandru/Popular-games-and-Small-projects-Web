@@ -8,6 +8,7 @@ class Player
 		this.creature_on_field=[];
 		this.creature_can_attack=[];
 		this.creature_graveyard=[];
+		this.out_of_cards=0;
 	}
 	print_hand(players_turn,battle_for_player)
 	{
@@ -108,8 +109,9 @@ function draw_a_card(player_to_draw)
 	}
 	else
 	{
-		alert("You are out of cards lose 1 HP")
-		player_to_draw.hp-=1;
+		player_to_draw.out_of_cards+=1;
+		alert("You are out of cards lose "+ player_to_draw.out_of_cards +" HP")
+		player_to_draw.hp-=player_to_draw.out_of_cards;
 		document.getElementById("player1_hp").innerHTML="HP of player1:"+player1.hp;
 		document.getElementById("player2_hp").innerHTML="HP of player2:"+player2.hp;
 		win_or_lost();
