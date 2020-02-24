@@ -1,3 +1,4 @@
+var from_spell_click=0;
 function end_turn(id_player)
 {
 	console.log("Ending turn");
@@ -12,8 +13,6 @@ function end_turn(id_player)
 			player2.creature_can_attack.push(player2.creature_on_field[i]);
 		}
 		draw_a_card(player1);
-		//console.log(player1);
-		//console.log(player2);
 		player2.print_hand("hand_player2","battlefield_for_player2");
 	}
 	else if (id_player=="player2")
@@ -27,12 +26,31 @@ function end_turn(id_player)
 			player1.creature_can_attack.push(player1.creature_on_field[i]);
 		}
 		draw_a_card(player2);
-		//console.log(player1);
-		//console.log(player2);
 		player1.print_hand("hand_player1","battlefield_for_player1");
 	}
 }
 
+function get_attack_and_hp(id_of_card)
+{
+	attack_hp=document.getElementById(id_of_card).value;
+	attack_hp=attack_hp.split("\n");
+	attack_hp=attack_hp[2].split(" ");
+	return attack_hp;
+}
+
+function win_or_lost()
+{
+	if (player1.hp==0)
+	{
+		alert("You lost");
+		location.reload();
+	}
+	else if (player2.hp==0)
+	{
+		alert("You won");
+		location.reload();
+	}
+}
 function action(id_of_card,battle_for_player)
 {
 	if (battle_for_player=="battlefield_for_player2")
@@ -40,15 +58,14 @@ function action(id_of_card,battle_for_player)
 
 		if (check_for_blocker(battle_for_player)==1)
 		{
-			attack_hp=document.getElementById(id_of_card).value;
-			attack_hp=attack_hp.split("\n");
-			attack_hp=attack_hp[2].split(" ");
+			attack_hp=get_attack_and_hp(id_of_card);
 			attack=attack_hp[0];
 			hp=attack_hp[attack_hp.length-1];
 			player1.hp=player1.hp-attack;
 			check_for_blocker(battle_for_player);
 			document.getElementById("player1_hp").innerHTML="HP of player1:"+player1.hp;
 			document.getElementById(id_of_card).disabled=true;
+			win_or_lost()
 		}
 		else
 		{
@@ -59,14 +76,13 @@ function action(id_of_card,battle_for_player)
 	{
 		if (check_for_blocker(battle_for_player)==1)
 		{
-			attack_hp=document.getElementById(id_of_card).value;
-			attack_hp=attack_hp.split("\n");
-			attack_hp=attack_hp[2].split(" ");
-			attack=attack_hp[0]
+			attack_hp=get_attack_and_hp(id_of_card);
+			attack=attack_hp[0];
 			hp=attack_hp[attack_hp.length-1];
 			player2.hp=player2.hp-attack;
 			document.getElementById("player2_hp").innerHTML="HP of player2:"+player2.hp;
 			document.getElementById(id_of_card).disabled=true;
+			win_or_lost()
 		}
 		else
 		{
@@ -74,7 +90,45 @@ function action(id_of_card,battle_for_player)
 		}
 	}
 }
-
+function remove_card_from_hand(id_of_card,player_hand)
+{
+	if (player_hand.includes("1"))
+	{
+		var i;
+		for (i=0;i<player1.hand.length;i++)
+		{
+			discard_text=document.getElementById(id_of_card).value;
+			if (discard_text.includes(player1.hand[i].name))
+			{
+				player1.hand.splice(i,1);
+				break;
+			}
+		}
+	}
+	else if (player_hand.includes("2"))
+	{
+		for (i=0;i<player2.hand.length;i++)
+		{
+			discard_text=document.getElementById(id_of_card).value;
+			if (discard_text.includes(player2.hand[i].name))
+			{
+				player2.hand.splice(i,1);
+				break;
+			}
+		}
+	}
+}
+function Cast_spell(id_of_card,casting_player)
+{
+	remove_card_from_hand(id_of_card,casting_player);
+	spell_to_cast=document.getElementById(id_of_card);
+	document.getElementById(id_of_card).remove();
+	if (spell_to_cast.value.includes("Let's"))
+	{
+		from_spell_click=1;
+		Ride_spell(id_of_card,casting_player);
+	}
+}
 function pick_target(battle_for_player,id_of_card)
 {
 	var target=prompt("Pick a target that has guard");
@@ -172,7 +226,6 @@ function battle(creature,target,player_attaked,player_attacking)
 	{
 		Def_hp=Def_hp-Attack_attack;
 		after_battle=Def_attack+"  "+Def_hp;
-		//console.log(the_defending_creature.value);
 		update_status_of_card=the_defending_creature.value.split("\n");
 		update_status_of_card[2]=after_battle;
 		var i=0;
@@ -182,7 +235,6 @@ function battle(creature,target,player_attaked,player_attacking)
 			final_status=final_status+update_status_of_card[i]+"\n";
 		}
 		the_defending_creature.value=final_status;
-		//console.log(the_defending_creature);
 		final_status="";
 		for (i=0;i<update_status_of_card.length-1;i++)
 		{
@@ -195,20 +247,16 @@ function battle(creature,target,player_attaked,player_attacking)
 			}
 		}
 		the_defending_creature.innerHTML=final_status;
-		
 		Attack_hp=Attack_hp-Def_attack;
 		after_battle=Attack_attack+"  "+Attack_hp;
-		//console.log(the_defending_creature.value);
 		update_status_of_card=the_attacking_creature.value.split("\n");
 		update_status_of_card[2]=after_battle;
-		var i=0;
-		var final_status="";
+		final_status="";
 		for (i=0;i<update_status_of_card.length;i++)
 		{
 			final_status=final_status+update_status_of_card[i]+"\n";
 		}
 		the_attacking_creature.value=final_status;
-		//console.log(the_defending_creature);
 		final_status="";
 		for (i=0;i<update_status_of_card.length-1;i++)
 		{
