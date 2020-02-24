@@ -101,8 +101,19 @@ function action(id_of_card,battle_for_player)
 }
 function draw_a_card(player_to_draw)
 {
-	player_to_draw.hand.push(player_to_draw.deck.slice(0,1)[0]);
-	player_to_draw.deck.splice(0,1);
+	if (player_to_draw.deck.length>0)
+	{
+		player_to_draw.hand.push(player_to_draw.deck.slice(0,1)[0]);
+		player_to_draw.deck.splice(0,1);
+	}
+	else
+	{
+		alert("You are out of cards lose 1 HP")
+		player_to_draw.hp-=1;
+		document.getElementById("player1_hp").innerHTML="HP of player1:"+player1.hp;
+		document.getElementById("player2_hp").innerHTML="HP of player2:"+player2.hp;
+		win_or_lost();
+	}
 }
 player1=new Player(deck_for_test_player1);
 player2=new Player(deck_for_test_player2);
