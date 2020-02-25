@@ -11,7 +11,7 @@ function end_turn(id_player)
 			player2.creature_on_field[i].disabled=false;
 			player2.creature_can_attack.push(player2.creature_on_field[i]);
 		}
-		draw_a_card(player1);
+		draw_a_card(player2);
 		player2.print_hand("hand_player2","battlefield_for_player2");
 	}
 	else if (id_player=="player2")
@@ -24,7 +24,7 @@ function end_turn(id_player)
 			player1.creature_on_field[i].disabled=false;
 			player1.creature_can_attack.push(player1.creature_on_field[i]);
 		}
-		draw_a_card(player2);
+		draw_a_card(player1);
 		player1.print_hand("hand_player1","battlefield_for_player1");
 	}
 }
