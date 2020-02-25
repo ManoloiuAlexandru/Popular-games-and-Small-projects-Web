@@ -65,7 +65,7 @@ function play_it(id_of_card,battle_for_player)
 	card_on_field.setAttribute("id","B"+id_of_card);
 	card_on_field.onclick=function()
 	{
-		action(this.id,battle_for_player);
+		action_to_do(this.id,battle_for_player);
 	}
 	Style_cards(card_on_field);
 	card_on_field.setAttribute("disabled","false");
@@ -89,16 +89,6 @@ function play_it(id_of_card,battle_for_player)
 		remove_card_from_hand(id_of_card,"hand2");
 	}
 	document.getElementById(id_of_card).remove();
-}
-function action(id_of_card,battle_for_player)
-{
-	if (from_spell_click==1)
-	{
-	}
-	else
-	{
-	action_to_do(id_of_card,battle_for_player);
-	}
 }
 function draw_a_card(player_to_draw)
 {
