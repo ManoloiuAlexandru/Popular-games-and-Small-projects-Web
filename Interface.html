@@ -14,7 +14,8 @@
 <body>
 <h1><center>Battle Resource</center></h1>
 <p id="player1_hp"></p>
-<button id="player1" onclick="End_turn(this.id)">End_Turn</button>
+<button id="player1" onclick="End_turn(this.id)">End_Turn</button></br>
+<button id="Castle1" onclick="action_to_do(this.id)">Castle of player 1</button>
 <p>Player1 hand:</p>
 <div id="hand_player1"></div>
 <p>The battlefield for player 1</p>
@@ -25,7 +26,8 @@
 <p>Player2 hand:</p> 
 <div id="hand_player2"></div>
 <p id="player2_hp"></p>
-<button id="player2" onclick="End_turn(this.id)">End_Turn</button>
+<button id="player2" onclick="End_turn(this.id)">End_Turn</button></br>
+<button id="Castle2" onclick="action_to_do(this.id)">Castle of player 2</button>
 <script>
 document.getElementById("player2").disabled =true;
 function End_turn(id_player)
