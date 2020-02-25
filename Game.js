@@ -1,4 +1,3 @@
-var from_spell_click=0;
 function end_turn(id_player)
 {
 	console.log("Ending turn");
@@ -51,43 +50,115 @@ function win_or_lost()
 		location.reload();
 	}
 }
-function action(id_of_card,battle_for_player)
+var in_battle=false;
+var attaker;
+var defender;
+function action_to_do(id_of_card)
 {
-	if (battle_for_player=="battlefield_for_player2")
+	if (in_battle==false)
 	{
-
-		if (check_for_blocker(battle_for_player)==1)
+		in_battle=true;
+		attaker=id_of_card;
+		setTimeout(action_to_do,60000);
+	}
+	else if (in_battle==true)
+	{
+		in_battle=false;
+		defender=id_of_card;
+		action(attaker,defender);
+	}
+}
+var no_castle=0;
+function action(attacker,defender)
+{
+	no_castle=1;
+	try
+	{
+		if (defender.includes("Castle"))
 		{
-			attack_hp=get_attack_and_hp(id_of_card);
-			attack=attack_hp[0];
-			hp=attack_hp[attack_hp.length-1];
-			player1.hp=player1.hp-attack;
-			check_for_blocker(battle_for_player);
-			document.getElementById("player1_hp").innerHTML="HP of player1:"+player1.hp;
-			document.getElementById(id_of_card).disabled=true;
-			win_or_lost()
+			no_castle=0;
 		}
-		else
+		if (defender.charAt(defender.length-1)==2 || defender.charAt(defender.length-2)==2)
 		{
-			pick_target(battle_for_player,id_of_card);
+			if (no_castle==0 && check_for_blocker("battlefield_for_player1")==1)
+			{
+				attack_hp=get_attack_and_hp(attacker);
+				attack=attack_hp[0];
+				hp=attack_hp[attack_hp.length-1];
+				player2.hp=player2.hp-attack;
+				document.getElementById("player2_hp").innerHTML="HP of player2:"+player2.hp;
+				document.getElementById(attacker).disabled=true;
+				win_or_lost();
+			}
+			else 
+			{
+				pick_target(attacker,defender);
+			}
 		}
+		else if (defender.charAt(defender.length-1)==1 || defender.charAt(defender.length-2)==1)
+		{
+			if (no_castle==0 && check_for_blocker("battlefield_for_player2")==1)
+			{
+				attack_hp=get_attack_and_hp(attacker);
+				attack=attack_hp[0];
+				hp=attack_hp[attack_hp.length-1];
+				player1.hp=player1.hp-attack;
+				document.getElementById("player1_hp").innerHTML="HP of player1:"+player1.hp;
+				document.getElementById(attacker).disabled=true;
+				win_or_lost();
+			}
+			else 
+			{
+				pick_target(attacker,defender);
+			}
+		}
+	}
+	catch(err)
+	{
+		console.log(err);
+	}
+}
+function pick_target(attacker,target)
+{
+	console.log("pick_target",attacker,target);
+	if (target=="Castle2")
+	{
+		no_castle=1;
+		for (i=0;i<player2.creature_on_field.length;i++)
+		{
+			player2.creature_on_field[i].disabled=false;
+		}
+		setTimeout(action_to_do,60000);
+	}
+	else if (target=="Castle1")
+	{
+		no_castle=1;
+		for (i=0;i<player1.creature_on_field.length;i++)
+		{
+			player1.creature_on_field[i].disabled=false;
+		}
+		setTimeout(action_to_do,60000);
 	}
 	else
 	{
-		if (check_for_blocker(battle_for_player)==1)
+		get_target=document.getElementById(target);
+		creature=document.getElementById(attacker);
+		target=document.getElementById(target).value;
+		if (attacker.charAt(attacker.length-2)=="1")
 		{
-			attack_hp=get_attack_and_hp(id_of_card);
-			attack=attack_hp[0];
-			hp=attack_hp[attack_hp.length-1];
-			player2.hp=player2.hp-attack;
-			document.getElementById("player2_hp").innerHTML="HP of player2:"+player2.hp;
-			document.getElementById(id_of_card).disabled=true;
-			win_or_lost()
+			player_attacking=player1;
+			player_attaked=player2;
 		}
-		else
+		else if (attacker.charAt(attacker.length-2)=="2")
 		{
-			pick_target(battle_for_player,id_of_card);
+			player_attacking=player2;
+			player_attaked=player1;
 		}
+		console.log(get_target);
+		console.log(creature);
+		console.log(player_attacking);
+		console.log(player_attaked);
+		battle(creature,get_target,player_attaked,player_attacking);
 	}
 }
 function remove_card_from_hand(id_of_card,player_hand)
@@ -129,51 +200,6 @@ function Cast_spell(id_of_card,casting_player)
 		Ride_spell(id_of_card,casting_player);
 	}
 }
-function pick_target(battle_for_player,id_of_card)
-{
-	var target=prompt("Pick a target that has guard");
-	var in_the_field=0;
-	if (battle_for_player=="battlefield_for_player2")
-	{
-		for (i=0;i<player1.creature_on_field.length;i++)
-		{
-			if (player1.creature_on_field[i].value.includes(target) && player1.creature_on_field[i].value.includes("Guard"))
-			{
-				in_the_field=1;
-				break;
-			}
-		}
-		if (in_the_field==0)
-		{
-		alert("That is not a Guard!!");
-		}
-		else if (in_the_field==1)
-		{
-			document.getElementById(id_of_card).disabled=true;
-			battle(id_of_card,target,player1,player2);
-		}
-	}
-	else if (battle_for_player=="battlefield_for_player1")
-	{
-		for (i=0;i<player2.creature_on_field.length;i++)
-		{
-			if (player2.creature_on_field[i].value.includes(target) && player2.creature_on_field[i].value.includes("Guard"))
-			{
-				in_the_field=1;
-				break;
-			}
-		}
-		if (in_the_field==0)
-		{
-		alert("That is not a Guard!!");
-		}
-		else if (in_the_field==1)
-		{
-			document.getElementById(id_of_card).disabled=true;
-			battle(id_of_card,target,player2,player1);
-		}
-	}
-}
 function battle(creature,target,player_attaked,player_attacking)
 {
 	console.log("Battle");
@@ -182,11 +208,11 @@ function battle(creature,target,player_attaked,player_attacking)
 	var index_of_defending_creature;
 	var the_attacking_creature;
 	var the_defending_creature;
-	console.log(player1);
-	console.log(player2);
+	//console.log(player1);
+	//console.log(player2);
 	for (i=0;i<player_attacking.creature_on_field.length;i++)
 	{
-		if (player_attacking.creature_on_field[i].id==creature)
+		if (player_attacking.creature_on_field[i]==creature)
 		{
 			the_attacking_creature=player_attacking.creature_on_field[i];
 			index_of_attacking_creature=i;
@@ -195,7 +221,7 @@ function battle(creature,target,player_attaked,player_attacking)
 	}
 	for (i=0;i<player_attaked.creature_on_field.length;i++)
 	{
-		if (player_attaked.creature_on_field[i].value.includes(target))
+		if (player_attaked.creature_on_field[i]==target)
 		{
 			the_defending_creature=player_attaked.creature_on_field[i];
 			index_of_defending_creature=i;
