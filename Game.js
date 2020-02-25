@@ -118,6 +118,32 @@ function action(attacker,defender)
 		console.log(err);
 	}
 }
+function check_for_Guards(target)
+{
+	get_target=document.getElementById(target);
+	if (get_target.value.includes("Guard"))
+	{
+		return 1;
+	}
+	else 
+	{
+		if (target.charAt(target.length-2)==1)
+		{
+			if (check_for_blocker("battlefield_for_player2")==0)
+			{
+				return 0;
+			}
+		}
+		else if (target.charAt(target.length-2)==2)
+		{
+			if (check_for_blocker("battlefield_for_player1")==0)
+			{
+				return 0;
+			}
+		}
+	}
+	return 1;
+}
 function pick_target(attacker,target)
 {
 	console.log("pick_target",attacker,target);
@@ -143,22 +169,29 @@ function pick_target(attacker,target)
 	{
 		get_target=document.getElementById(target);
 		creature=document.getElementById(attacker);
-		target=document.getElementById(target).value;
-		if (attacker.charAt(attacker.length-2)=="1")
+		if (check_for_Guards(target)==1)
 		{
-			player_attacking=player1;
-			player_attaked=player2;
+			if (attacker.charAt(attacker.length-2)=="1")
+			{
+				player_attacking=player1;
+				player_attaked=player2;
+			}
+			else if (attacker.charAt(attacker.length-2)=="2")
+			{
+				player_attacking=player2;
+				player_attaked=player1;
+			}
+			//console.log(get_target);
+			//console.log(creature);
+			//console.log(player_attacking);
+			//console.log(player_attaked);
+			battle(creature,get_target,player_attaked,player_attacking);
 		}
-		else if (attacker.charAt(attacker.length-2)=="2")
+		else
 		{
-			player_attacking=player2;
-			player_attaked=player1;
+			alert("That is not a Guard");
+			setTimeout(action_to_do,60000);
 		}
-		console.log(get_target);
-		console.log(creature);
-		console.log(player_attacking);
-		console.log(player_attaked);
-		battle(creature,get_target,player_attaked,player_attacking);
 	}
 }
 function remove_card_from_hand(id_of_card,player_hand)
