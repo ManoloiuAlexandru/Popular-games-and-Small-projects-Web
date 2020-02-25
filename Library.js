@@ -23,6 +23,7 @@ Creatures=
 Spells=
 [
 [0,"Let's ride","All frienldy creatures get Rush"],
+//[0,"Hidden artillery","Deals 2 damage to all enemies"],
 ]
 var deck_for_test_player1=[];
 var i;
