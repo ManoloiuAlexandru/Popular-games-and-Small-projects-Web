@@ -86,7 +86,7 @@ function action(attacker,defender)
 				attack=attack_hp[0];
 				hp=attack_hp[attack_hp.length-1];
 				player2.hp=player2.hp-attack;
-				document.getElementById("player2_hp").innerHTML="HP of player2:"+player2.hp;
+				document.getElementById("player2_hp").innerHTML="Castle of player2:"+player2.hp;
 				document.getElementById(attacker).disabled=true;
 				win_or_lost();
 			}
@@ -103,7 +103,7 @@ function action(attacker,defender)
 				attack=attack_hp[0];
 				hp=attack_hp[attack_hp.length-1];
 				player1.hp=player1.hp-attack;
-				document.getElementById("player1_hp").innerHTML="HP of player1:"+player1.hp;
+				document.getElementById("player1_hp").innerHTML="Castle of player1:"+player1.hp;
 				document.getElementById(attacker).disabled=true;
 				win_or_lost();
 			}
