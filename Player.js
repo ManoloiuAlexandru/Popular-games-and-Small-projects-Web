@@ -92,7 +92,13 @@ function play_it(id_of_card,battle_for_player)
 }
 function draw_a_card(player_to_draw)
 {
-	if (player_to_draw.deck.length>0)
+	if (player_to_draw.hand.length>8)
+	{
+		alert("Your hand is full");
+		player_to_draw.deck.splice(0,1);
+		console.log(player_to_draw);
+	}
+	else if (player_to_draw.deck.length>0)
 	{
 		player_to_draw.hand.push(player_to_draw.deck.slice(0,1)[0]);
 		player_to_draw.deck.splice(0,1);
