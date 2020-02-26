@@ -13,6 +13,15 @@ function end_turn(id_player)
 		}
 		draw_a_card(player2);
 		player2.print_hand("hand_player2","battlefield_for_player2");
+		if (player2.full_mana>9){}
+		else
+		{
+		player2.full_mana+=1;
+		player2.rest_of_mana=player2.full_mana;
+		}
+		console.log(player1.full_mana);
+		console.log(player2.full_mana);
+		display_players_values();
 	}
 	else if (id_player=="player2")
 	{
@@ -26,9 +35,25 @@ function end_turn(id_player)
 		}
 		draw_a_card(player1);
 		player1.print_hand("hand_player1","battlefield_for_player1");
+		if (player1.full_mana>9){}
+		else
+		{
+		player1.full_mana+=1;
+		player1.rest_of_mana=player1.full_mana;
+		}
+		console.log(player1.full_mana);
+		console.log(player2.full_mana);
+		display_players_values();
 	}
 }
 
+function display_players_values()
+{
+	document.getElementById("player1_hp").innerHTML="Castle of player1:"+player1.hp;
+	document.getElementById("player2_hp").innerHTML="Castle of player2:"+player2.hp;
+	document.getElementById("player1_mana").innerHTML="Mana of player1:"+player1.rest_of_mana;
+	document.getElementById("player2_mana").innerHTML="Mana of player2:"+player2.rest_of_mana;
+}
 function get_attack_and_hp(id_of_card)
 {
 	attack_hp=document.getElementById(id_of_card).value;
@@ -86,7 +111,8 @@ function action(attacker,defender)
 				attack=attack_hp[0];
 				hp=attack_hp[attack_hp.length-1];
 				player2.hp=player2.hp-attack;
-				document.getElementById("player2_hp").innerHTML="Castle of player2:"+player2.hp;
+				/*document.getElementById("player2_hp").innerHTML="Castle of player2:"+player2.hp;*/
+				display_players_values();
 				document.getElementById(attacker).disabled=true;
 				win_or_lost();
 			}
@@ -103,7 +129,8 @@ function action(attacker,defender)
 				attack=attack_hp[0];
 				hp=attack_hp[attack_hp.length-1];
 				player1.hp=player1.hp-attack;
-				document.getElementById("player1_hp").innerHTML="Castle of player1:"+player1.hp;
+				//document.getElementById("player1_hp").innerHTML="Castle of player1:"+player1.hp;
+				display_players_values();
 				document.getElementById(attacker).disabled=true;
 				win_or_lost();
 			}
@@ -224,14 +251,37 @@ function remove_card_from_hand(id_of_card,player_hand)
 }
 function Cast_spell(id_of_card,casting_player)
 {
-	remove_card_from_hand(id_of_card,casting_player);
-	spell_to_cast=document.getElementById(id_of_card);
-	document.getElementById(id_of_card).remove();
-	if (spell_to_cast.value.includes("Let's"))
+	card_to_play=document.getElementById(id_of_card).value.split("\n");
+	card_to_play=card_to_play[0].split(" ");
+	if (casting_player[casting_player.length-1]=="1" && player1.rest_of_mana<card_to_play[0])
 	{
-		from_spell_click=1;
-		Ride_spell(id_of_card,casting_player);
+			alert("Low mana");
 	}
+	else if (casting_player[casting_player.length-1]=="2" && player2.rest_of_mana<card_to_play[0])
+	{
+			alert("Low mana");
+	}
+	else
+	{
+		if (casting_player[casting_player.length-1]=="1")
+		{
+			player1.rest_of_mana-=parseInt(card_to_play[0]);
+		}
+		else if (casting_player[casting_player.length-1]=="2")
+		{
+			player2.rest_of_mana-=parseInt(card_to_play[0]);
+		}
+		remove_card_from_hand(id_of_card,casting_player);
+		spell_to_cast=document.getElementById(id_of_card);
+		document.getElementById(id_of_card).remove();
+		if (spell_to_cast.value.includes("Let's"))
+		{
+			from_spell_click=1;
+			Ride_spell(id_of_card,casting_player);
+		}
+	}
+	console.log(player1);
+	console.log(player2);
 }
 function battle(creature,target,player_attaked,player_attacking)
 {
