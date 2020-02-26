@@ -9,7 +9,7 @@ class Player
 		this.creature_can_attack=[];
 		this.creature_graveyard=[];
 		this.out_of_cards=0;
-		this.full_mana=8;
+		this.full_mana=1;
 		this.rest_of_mana=this.full_mana;
 		this.attacking_token=false;
 	}
@@ -83,6 +83,7 @@ function play_it(id_of_card,battle_for_player)
 	}
 	else
 	{
+		id_for_card+=1;
 		if (battle_for_player[battle_for_player.length-1]=="1")
 		{
 			player1.rest_of_mana-=parseInt(card_to_play[0]);
@@ -92,7 +93,7 @@ function play_it(id_of_card,battle_for_player)
 			player2.rest_of_mana-=parseInt(card_to_play[0]);
 		}
 		var card_on_field=document.createElement("Button");
-		card_on_field.setAttribute("id","B"+id_of_card);
+		card_on_field.setAttribute("id",id_for_card+"B"+id_of_card);
 		card_on_field.onclick=function()
 		{
 			action_to_do(this.id,battle_for_player);
