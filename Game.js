@@ -13,7 +13,10 @@ function end_turn(id_player)
 		}
 		draw_a_card(player2);
 		player2.print_hand("hand_player2","battlefield_for_player2");
-		if (player2.full_mana>9){}
+		if (player2.full_mana>9)
+		{
+			player2.rest_of_mana=player2.full_mana;
+		}
 		else
 		{
 		player2.full_mana+=1;
@@ -21,7 +24,10 @@ function end_turn(id_player)
 		}
 		console.log(player1.full_mana);
 		console.log(player2.full_mana);
+		player2.attacking_token=true;
+		player1.attacking_token=false;
 		display_players_values();
+		
 	}
 	else if (id_player=="player2")
 	{
@@ -35,7 +41,10 @@ function end_turn(id_player)
 		}
 		draw_a_card(player1);
 		player1.print_hand("hand_player1","battlefield_for_player1");
-		if (player1.full_mana>9){}
+		if (player1.full_mana>9)
+		{
+			player1.rest_of_mana=player1.full_mana;
+		}
 		else
 		{
 		player1.full_mana+=1;
@@ -43,6 +52,8 @@ function end_turn(id_player)
 		}
 		console.log(player1.full_mana);
 		console.log(player2.full_mana);
+		player1.attacking_token=true;
+		player2.attacking_token=false;
 		display_players_values();
 	}
 }
@@ -96,47 +107,59 @@ function action_to_do(id_of_card)
 var no_castle=0;
 function action(attacker,defender)
 {
-	no_castle=1;
 	try
 	{
-		if (defender.includes("Castle"))
+		if (attacker.charAt(attacker.length-2)==1 && player1.attacking_token==false)
+		{}
+		else if (attacker.charAt(attacker.length-2)==2 && player2.attacking_token==false)
+		{}
+		else
 		{
-			no_castle=0;
-		}
-		if (defender.charAt(defender.length-1)==2 || defender.charAt(defender.length-2)==2)
-		{
-			if (no_castle==0 && check_for_blocker("battlefield_for_player1")==1)
+			no_castle=1;
+			try
 			{
-				attack_hp=get_attack_and_hp(attacker);
-				attack=attack_hp[0];
-				hp=attack_hp[attack_hp.length-1];
-				player2.hp=player2.hp-attack;
-				/*document.getElementById("player2_hp").innerHTML="Castle of player2:"+player2.hp;*/
-				display_players_values();
-				document.getElementById(attacker).disabled=true;
-				win_or_lost();
+				if (defender.includes("Castle"))
+				{
+					no_castle=0;
+				}
+				if (defender.charAt(defender.length-1)==2 || defender.charAt(defender.length-2)==2)
+				{
+					if (no_castle==0 && check_for_blocker("battlefield_for_player1")==1)
+					{
+						attack_hp=get_attack_and_hp(attacker);
+						attack=attack_hp[0];
+						hp=attack_hp[attack_hp.length-1];
+						player2.hp=player2.hp-attack;
+						display_players_values();
+						document.getElementById(attacker).disabled=true;
+						win_or_lost();
+					}
+					else 
+					{
+						pick_target(attacker,defender);
+					}
+				}
+				else if (defender.charAt(defender.length-1)==1 || defender.charAt(defender.length-2)==1)
+				{
+					if (no_castle==0 && check_for_blocker("battlefield_for_player2")==1)
+					{
+						attack_hp=get_attack_and_hp(attacker);
+						attack=attack_hp[0];
+						hp=attack_hp[attack_hp.length-1];
+						player1.hp=player1.hp-attack;
+						display_players_values();
+						document.getElementById(attacker).disabled=true;
+						win_or_lost();
+					}
+					else 
+					{
+						pick_target(attacker,defender);
+					}
+				}
 			}
-			else 
+			catch(err)
 			{
-				pick_target(attacker,defender);
-			}
-		}
-		else if (defender.charAt(defender.length-1)==1 || defender.charAt(defender.length-2)==1)
-		{
-			if (no_castle==0 && check_for_blocker("battlefield_for_player2")==1)
-			{
-				attack_hp=get_attack_and_hp(attacker);
-				attack=attack_hp[0];
-				hp=attack_hp[attack_hp.length-1];
-				player1.hp=player1.hp-attack;
-				//document.getElementById("player1_hp").innerHTML="Castle of player1:"+player1.hp;
-				display_players_values();
-				document.getElementById(attacker).disabled=true;
-				win_or_lost();
-			}
-			else 
-			{
-				pick_target(attacker,defender);
+				console.log(err);
 			}
 		}
 	}
@@ -208,10 +231,6 @@ function pick_target(attacker,target)
 				player_attacking=player2;
 				player_attaked=player1;
 			}
-			//console.log(get_target);
-			//console.log(creature);
-			//console.log(player_attacking);
-			//console.log(player_attaked);
 			battle(creature,get_target,player_attaked,player_attacking);
 		}
 		else
@@ -280,6 +299,7 @@ function Cast_spell(id_of_card,casting_player)
 			Ride_spell(id_of_card,casting_player);
 		}
 	}
+	display_players_values();
 	console.log(player1);
 	console.log(player2);
 }
@@ -291,8 +311,7 @@ function battle(creature,target,player_attaked,player_attacking)
 	var index_of_defending_creature;
 	var the_attacking_creature;
 	var the_defending_creature;
-	//console.log(player1);
-	//console.log(player2);
+	creature.disabled=true;
 	for (i=0;i<player_attacking.creature_on_field.length;i++)
 	{
 		if (player_attacking.creature_on_field[i]==creature)
@@ -381,9 +400,6 @@ function battle(creature,target,player_attaked,player_attacking)
 		}
 		the_attacking_creature.innerHTML=final_status;
 	}
-	
-	//console.log(player1);
-	//console.log(player2);
 	clean_board();
 }
 function check_for_blocker(battle_for_player)
