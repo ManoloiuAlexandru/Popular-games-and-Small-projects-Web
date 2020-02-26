@@ -15,7 +15,7 @@
   When you or the enemy draw more then 8 cards you will not get anymore in your hand and an alert will appear on the screen. Also you will lose cards from the deck, the order in which you draw the cards is: the first card from your deck.
   ![img](https://github.com/ManoloiuAlexandru/Battle_resurce/blob/master/message2.png)</br>
   
-  When you or the enemy is out of cards your castle will start to lose health points, this lose will increase linearly:</br>
+  When you or the enemy is out of cards your castle will start to lose health points, this lose will increase linearly starting from 1 to 2 to 3 and so on:</br>
   ![img](https://github.com/ManoloiuAlexandru/Battle_resurce/blob/master/msg2.png)</br>
   
 ***Note:Work in progress***
