@@ -1,11 +1,11 @@
 Creatures=
 [
-[0,1,1,"Peasant","Soldier",[]],
+[1,1,1,"Peasant","Soldier",[]],
 //[0,999,99999,"Alex","Soldier",["Guard( creature with guard must be attacked first)","Draw a card","Nobel","Rush( creature with rush can attack immediately after summon)"]],
-[0,2,1,"Archer","Soldier",[]],
-[0,3,3,"Knight","Soldier",[]],
-[0,1,5,"Gate Guard","Soldier",["Guard( creature with guard must be attacked first)"]],
-[0,3,1,"Cavalry","Soldier",["Rush( creature with rush can attack immediately after summon)"]],
+[1,2,1,"Archer","Soldier",[]],
+[3,3,3,"Knight","Soldier",[]],
+[3,1,5,"Gate Guard","Soldier",["Guard( creature with guard must be attacked first)"]],
+[2,3,1,"Cavalry","Soldier",["Rush( creature with rush can attack immediately after summon)"]],
 /*[0,1,1,"Scout","Soldier",["Draw a card"]],
 [0,2,3,"Paladin","Soldier",["When a friendly soldier dies get+1/+1"]],
 [0,4,6,"Royal Guard","Soldier",["Guard","Draw a card"]],
