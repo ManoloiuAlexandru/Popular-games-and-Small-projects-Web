@@ -11,5 +11,5 @@
   
   When you attack the enemy castle or an enemy creature but there are guards on the map you must destory the guards first before attacking the enemy castle or creature.</br>
   ![img](https://github.com/ManoloiuAlexandru/Battle_resurce/blob/master/message3.png)</br>
-***Note: At this point the core of the game is done but it is only on single player.***
+***Note:Work in progress***
       
