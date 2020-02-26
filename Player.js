@@ -60,35 +60,45 @@ class Player
 }
 function play_it(id_of_card,battle_for_player)
 {
-	
-	var card_on_field=document.createElement("Button");
-	card_on_field.setAttribute("id","B"+id_of_card);
-	card_on_field.onclick=function()
+	if (battle_for_player[battle_for_player.length-1]=="1" && player1.creature_on_field.length>5)
 	{
-		action_to_do(this.id,battle_for_player);
+			alert("No more place for creatures to put");
 	}
-	Style_cards(card_on_field);
-	card_on_field.setAttribute("disabled","false");
-	card_on_field.innerHTML=document.getElementById(id_of_card).innerHTML;
-	card_on_field.title=document.getElementById(id_of_card).value;
-	card_on_field.value=document.getElementById(id_of_card).value;
-	if (card_on_field.value.includes("Rush"))
+	else if (battle_for_player[battle_for_player.length-1]=="2" && player2.creature_on_field.length>5)
 	{
-		card_on_field.disabled=false;
-	}
-	document.getElementById(battle_for_player).appendChild(card_on_field);
-	
-	if (battle_for_player=="battlefield_for_player1")
-	{
-		player1.creature_on_field.push(card_on_field);
-		remove_card_from_hand(id_of_card,"hand1");
+			alert("No more place for creatures to put");
 	}
 	else
 	{
-		player2.creature_on_field.push(card_on_field);
-		remove_card_from_hand(id_of_card,"hand2");
+		var card_on_field=document.createElement("Button");
+		card_on_field.setAttribute("id","B"+id_of_card);
+		card_on_field.onclick=function()
+		{
+			action_to_do(this.id,battle_for_player);
+		}
+		Style_cards(card_on_field);
+		card_on_field.setAttribute("disabled","false");
+		card_on_field.innerHTML=document.getElementById(id_of_card).innerHTML;
+		card_on_field.title=document.getElementById(id_of_card).value;
+		card_on_field.value=document.getElementById(id_of_card).value;
+		if (card_on_field.value.includes("Rush"))
+		{
+			card_on_field.disabled=false;
+		}
+		document.getElementById(battle_for_player).appendChild(card_on_field);
+		
+		if (battle_for_player=="battlefield_for_player1")
+		{
+			player1.creature_on_field.push(card_on_field);
+			remove_card_from_hand(id_of_card,"hand1");
+		}
+		else
+		{
+			player2.creature_on_field.push(card_on_field);
+			remove_card_from_hand(id_of_card,"hand2");
+		}
+		document.getElementById(id_of_card).remove();
 	}
-	document.getElementById(id_of_card).remove();
 }
 function draw_a_card(player_to_draw)
 {
