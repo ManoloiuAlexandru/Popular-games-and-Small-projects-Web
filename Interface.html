@@ -14,6 +14,7 @@
 <body>
 <h1><center>Battle Resource</center></h1>
 <p id="player1_hp"></p>
+<p id="player1_mana"></p>
 <button id="player1" onclick="End_turn(this.id)">End_Turn</button></br>
 <p></p>
 <button id="Castle1" onclick="action_to_do(this.id)">Castle of player 1</button>
@@ -27,6 +28,7 @@
 <p>Player2 hand:</p> 
 <div id="hand_player2"></div>
 <p id="player2_hp"></p>
+<p id="player2_mana"></p>
 <button id="player2" onclick="End_turn(this.id)">End_Turn</button></br>
 <p></p>
 <button id="Castle2" onclick="action_to_do(this.id)">Castle of player 2</button>
@@ -45,6 +47,8 @@ for (i=0;i<85;i++)
 document.getElementById("separate_battle").innerHTML=result;
 document.getElementById("player1_hp").innerHTML="Castle of player1:"+player1.hp;
 document.getElementById("player2_hp").innerHTML="Castle of player2:"+player2.hp;
+document.getElementById("player1_mana").innerHTML="Mana of player1:"+player1.rest_of_mana;
+document.getElementById("player2_mana").innerHTML="Mana of player2:"+player2.rest_of_mana;
 player1.hand=player1.deck.slice(0,5);
 player1.deck.splice(0,5);
 player1.print_hand("hand_player1","battlefield_for_player1");
