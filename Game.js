@@ -1,3 +1,4 @@
+var id_for_card=0;
 function end_turn(id_player)
 {
 	console.log("Ending turn");
@@ -110,9 +111,13 @@ function action(attacker,defender)
 	try
 	{
 		if (attacker.charAt(attacker.length-2)==1 && player1.attacking_token==false)
-		{}
+		{
+			alert("It is not your turn to attack");
+		}
 		else if (attacker.charAt(attacker.length-2)==2 && player2.attacking_token==false)
-		{}
+		{
+			alert("It is not your turn to attack");
+		}
 		else
 		{
 			no_castle=1;
@@ -305,102 +310,109 @@ function Cast_spell(id_of_card,casting_player)
 }
 function battle(creature,target,player_attaked,player_attacking)
 {
-	console.log("Battle");
-	var i;
-	var index_of_attacking_creature;
-	var index_of_defending_creature;
-	var the_attacking_creature;
-	var the_defending_creature;
-	creature.disabled=true;
-	for (i=0;i<player_attacking.creature_on_field.length;i++)
+	try
 	{
-		if (player_attacking.creature_on_field[i]==creature)
+		console.log("Battle");
+		var i;
+		var index_of_attacking_creature;
+		var index_of_defending_creature;
+		var the_attacking_creature;
+		var the_defending_creature;
+		creature.disabled=true;
+		for (i=0;i<player_attacking.creature_on_field.length;i++)
 		{
-			the_attacking_creature=player_attacking.creature_on_field[i];
-			index_of_attacking_creature=i;
-			break;
-		}
-	}
-	for (i=0;i<player_attaked.creature_on_field.length;i++)
-	{
-		if (player_attaked.creature_on_field[i]==target)
-		{
-			the_defending_creature=player_attaked.creature_on_field[i];
-			index_of_defending_creature=i;
-			break;
-		}
-	}
-	Defending_attack_hp=the_defending_creature.value.split("\n");
-	Defending_attack_hp=Defending_attack_hp[2].split(" ");
-	Def_attack=Defending_attack_hp[0]
-	Def_hp=Defending_attack_hp[Defending_attack_hp.length-1];
-	
-	Attacking_attack_hp=the_attacking_creature.value.split("\n");
-	Attacking_attack_hp=Attacking_attack_hp[2].split(" ");
-	Attack_attack=Attacking_attack_hp[0]
-	Attack_hp=Attacking_attack_hp[Attacking_attack_hp.length-1];
-	
-	if (parseInt(Def_hp)<=parseInt(Attack_attack))
-	{
-		player_attaked.creature_graveyard.push(player_attaked.creature_on_field[index_of_defending_creature]);
-		player_attaked.creature_on_field.splice(index_of_defending_creature,1);
-		player_attaked.creature_can_attack.splice(index_of_defending_creature,1);
-	}
-	if (parseInt(Attack_hp)<=parseInt(Def_attack))
-	{
-		player_attacking.creature_graveyard.push(player_attacking.creature_on_field[index_of_attacking_creature]);
-		player_attacking.creature_on_field.splice(index_of_attacking_creature,1);
-		player_attacking.creature_can_attack.splice(index_of_attacking_creature,1);
-	}
-	if (parseInt(Def_hp)>parseInt(Attack_attack) || parseInt(Attack_hp)>parseInt(Def_attack))
-	{
-		Def_hp=Def_hp-Attack_attack;
-		after_battle=Def_attack+"  "+Def_hp;
-		update_status_of_card=the_defending_creature.value.split("\n");
-		update_status_of_card[2]=after_battle;
-		var i=0;
-		var final_status="";
-		for (i=0;i<update_status_of_card.length;i++)
-		{
-			final_status=final_status+update_status_of_card[i]+"\n";
-		}
-		the_defending_creature.value=final_status;
-		final_status="";
-		for (i=0;i<update_status_of_card.length-1;i++)
-		{
-			if (update_status_of_card[i].includes("Guard(") || update_status_of_card[i].includes("Rush("))
+			if (player_attacking.creature_on_field[i]==creature)
 			{
+				the_attacking_creature=player_attacking.creature_on_field[i];
+				index_of_attacking_creature=i;
+				break;
 			}
-			else
+		}
+		for (i=0;i<player_attaked.creature_on_field.length;i++)
+		{
+			if (player_attaked.creature_on_field[i]==target)
+			{
+				the_defending_creature=player_attaked.creature_on_field[i];
+				index_of_defending_creature=i;
+				break;
+			}
+		}
+		Defending_attack_hp=the_defending_creature.value.split("\n");
+		Defending_attack_hp=Defending_attack_hp[2].split(" ");
+		Def_attack=Defending_attack_hp[0]
+		Def_hp=Defending_attack_hp[Defending_attack_hp.length-1];
+		
+		Attacking_attack_hp=the_attacking_creature.value.split("\n");
+		Attacking_attack_hp=Attacking_attack_hp[2].split(" ");
+		Attack_attack=Attacking_attack_hp[0]
+		Attack_hp=Attacking_attack_hp[Attacking_attack_hp.length-1];
+		
+		if (parseInt(Def_hp)<=parseInt(Attack_attack))
+		{
+			player_attaked.creature_graveyard.push(player_attaked.creature_on_field[index_of_defending_creature]);
+			player_attaked.creature_on_field.splice(index_of_defending_creature,1);
+			player_attaked.creature_can_attack.splice(index_of_defending_creature,1);
+		}
+		if (parseInt(Attack_hp)<=parseInt(Def_attack))
+		{
+			player_attacking.creature_graveyard.push(player_attacking.creature_on_field[index_of_attacking_creature]);
+			player_attacking.creature_on_field.splice(index_of_attacking_creature,1);
+			player_attacking.creature_can_attack.splice(index_of_attacking_creature,1);
+		}
+		if (parseInt(Def_hp)>parseInt(Attack_attack) || parseInt(Attack_hp)>parseInt(Def_attack))
+		{
+			Def_hp=Def_hp-Attack_attack;
+			after_battle=Def_attack+"  "+Def_hp;
+			update_status_of_card=the_defending_creature.value.split("\n");
+			update_status_of_card[2]=after_battle;
+			var i=0;
+			var final_status="";
+			for (i=0;i<update_status_of_card.length;i++)
 			{
 				final_status=final_status+update_status_of_card[i]+"\n";
 			}
-		}
-		the_defending_creature.innerHTML=final_status;
-		Attack_hp=Attack_hp-Def_attack;
-		after_battle=Attack_attack+"  "+Attack_hp;
-		update_status_of_card=the_attacking_creature.value.split("\n");
-		update_status_of_card[2]=after_battle;
-		final_status="";
-		for (i=0;i<update_status_of_card.length;i++)
-		{
-			final_status=final_status+update_status_of_card[i]+"\n";
-		}
-		the_attacking_creature.value=final_status;
-		final_status="";
-		for (i=0;i<update_status_of_card.length-1;i++)
-		{
-			if (update_status_of_card[i].includes("Guard(") || update_status_of_card[i].includes("Rush("))
+			the_defending_creature.value=final_status;
+			final_status="";
+			for (i=0;i<update_status_of_card.length-1;i++)
 			{
+				if (update_status_of_card[i].includes("Guard(") || update_status_of_card[i].includes("Rush("))
+				{
+				}
+				else
+				{
+					final_status=final_status+update_status_of_card[i]+"\n";
+				}
 			}
-			else
+			the_defending_creature.innerHTML=final_status;
+			Attack_hp=Attack_hp-Def_attack;
+			after_battle=Attack_attack+"  "+Attack_hp;
+			update_status_of_card=the_attacking_creature.value.split("\n");
+			update_status_of_card[2]=after_battle;
+			final_status="";
+			for (i=0;i<update_status_of_card.length;i++)
 			{
 				final_status=final_status+update_status_of_card[i]+"\n";
 			}
+			the_attacking_creature.value=final_status;
+			final_status="";
+			for (i=0;i<update_status_of_card.length-1;i++)
+			{
+				if (update_status_of_card[i].includes("Guard(") || update_status_of_card[i].includes("Rush("))
+				{
+				}
+				else
+				{
+					final_status=final_status+update_status_of_card[i]+"\n";
+				}
+			}
+			the_attacking_creature.innerHTML=final_status;
 		}
-		the_attacking_creature.innerHTML=final_status;
+		clean_board();
 	}
-	clean_board();
+	catch(err)
+	{
+		in_battle=false;
+	}
 }
 function check_for_blocker(battle_for_player)
 {
