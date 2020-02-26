@@ -9,6 +9,8 @@ class Player
 		this.creature_can_attack=[];
 		this.creature_graveyard=[];
 		this.out_of_cards=0;
+		this.full_mana=1;
+		this.rest_of_mana=this.full_mana;
 	}
 	print_hand(players_turn,battle_for_player)
 	{
@@ -60,6 +62,8 @@ class Player
 }
 function play_it(id_of_card,battle_for_player)
 {
+	card_to_play=document.getElementById(id_of_card).title.split("\n");
+	card_to_play=card_to_play[0].split(" ");
 	if (battle_for_player[battle_for_player.length-1]=="1" && player1.creature_on_field.length>5)
 	{
 			alert("No more place for creatures to put");
@@ -68,8 +72,24 @@ function play_it(id_of_card,battle_for_player)
 	{
 			alert("No more place for creatures to put");
 	}
+	else if (battle_for_player[battle_for_player.length-1]=="1" && player1.rest_of_mana<card_to_play[0])
+	{
+			alert("Low mana");
+	}
+	else if (battle_for_player[battle_for_player.length-1]=="2" && player2.rest_of_mana<card_to_play[0])
+	{
+			alert("Low mana");
+	}
 	else
 	{
+		if (battle_for_player[battle_for_player.length-1]=="1")
+		{
+			player1.rest_of_mana-=parseInt(card_to_play[0]);
+		}
+		else if (battle_for_player[battle_for_player.length-1]=="2")
+		{
+			player2.rest_of_mana-=parseInt(card_to_play[0]);
+		}
 		var card_on_field=document.createElement("Button");
 		card_on_field.setAttribute("id","B"+id_of_card);
 		card_on_field.onclick=function()
@@ -98,6 +118,9 @@ function play_it(id_of_card,battle_for_player)
 			remove_card_from_hand(id_of_card,"hand2");
 		}
 		document.getElementById(id_of_card).remove();
+		/*document.getElementById("player1_mana").innerHTML="Mana of player1:"+player1.rest_of_mana;
+		document.getElementById("player2_mana").innerHTML="Mana of player2:"+player2.rest_of_mana;*/
+		display_players_values();
 	}
 }
 function draw_a_card(player_to_draw)
@@ -118,8 +141,11 @@ function draw_a_card(player_to_draw)
 		player_to_draw.out_of_cards+=1;
 		alert("You are out of cards you will lose "+ player_to_draw.out_of_cards +" HP")
 		player_to_draw.hp-=player_to_draw.out_of_cards;
-		document.getElementById("player1_hp").innerHTML="Castle of player1:"+player1.hp;
+		/*document.getElementById("player1_hp").innerHTML="Castle of player1:"+player1.hp;
 		document.getElementById("player2_hp").innerHTML="Castle of player2:"+player2.hp;
+		document.getElementById("player1_mana").innerHTML="Mana of player1:"+player1.rest_of_mana;
+		document.getElementById("player2_mana").innerHTML="Mana of player2:"+player2.rest_of_mana;*/
+		display_players_values();
 		win_or_lost();
 	}
 }
