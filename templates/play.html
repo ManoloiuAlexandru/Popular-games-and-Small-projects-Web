@@ -120,8 +120,8 @@
 		{
 			console.log("1111111111",this.connectedPlayers);
 			console.log("333333333",this.username);
-			
-			/*if (confirm('Do you want to start a game of Tic Tac Toe with ' + message)) {
+			/*
+			if (confirm('Do you want to start a game of Tic Tac Toe with ' + message)) {
 			  this.otherPlayerName = message
 			  this.otherPlayerChannel = this.pusher.subscribe('private-' + this.otherPlayerName)
 			  this.otherPlayerChannel.bind('pusher:subscription_succeeded', () => {
@@ -135,8 +135,6 @@
 			  })
 			  this.gameDeclined()
 			}*/
-		  }),
-
 		  this.myChannel.bind('client-game-started', (message) => {
 			this.status = "Game started with " + message
 			this.$refs.gameboard.classList.remove('invisible');
