@@ -18,6 +18,6 @@
   When you or the enemy is out of cards your castle will start to lose health points, this lose will increase linearly starting from 1 to 2 to 3 and so on:</br>
   ![img](https://github.com/ManoloiuAlexandru/Battle_resurce/blob/master/msg2.png)</br>
   
-***Note:Work in progress***
-***The python server is for multiplayer mode, work in progress.***
+
+*** Note: The python server is for multiplayer mode, work in progress.***
       
