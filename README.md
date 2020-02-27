@@ -19,4 +19,5 @@
   ![img](https://github.com/ManoloiuAlexandru/Battle_resurce/blob/master/msg2.png)</br>
   
 ***Note:Work in progress***
+***The python server is for multiplayer mode, work in progress.***
       
