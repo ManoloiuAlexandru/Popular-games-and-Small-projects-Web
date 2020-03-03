@@ -18,26 +18,18 @@
         </div>
         <div class="row mx-5" style="height: 50vh">
           <div class="col-8 h-50 align-self-center">
-            <div class="row border rounded invisible h-50 w-75 m-auto" style="font-size: 3.6rem" ref="gameboard" @click="playerAction">
-              <div class="h-100 pr-2 col border border-dark" data-id="1" ref="1"></div>
-              <div class="col pr-2 border border-dark" data-id="2" ref="2"></div>
-              <div class="col pr-2 border border-dark" data-id="3" ref="3"></div>
-              <div class="w-100"></div>
-              <div class="h-100 pr-2 col border border-dark" data-id="4" ref="4"></div>
-              <div class="col pr-2 border border-dark" data-id="5" ref="5"></div>
-              <div class="col pr-2 border border-dark" data-id="6" ref="6"></div>
-              <div class="w-100"></div>
-              <div class="h-100 pr-2 col border border-dark" data-id="7" ref="7"></div>
-              <div class="col pr-2 border border-dark" data-id="8" ref="8"></div>
-              <div class="col pr-2 border border-dark" data-id="9" ref="9"></div>
-            </div>
+            <form action="/picked">
+			  <label for="fname">Player you want to play with:</label><br>
+			  <input type="text" id="fname" name="fname"><br>
+			  <input type="submit" value="Submit">	
+			</form>
           </div>
           <div class="col-4 pl-3">
             <div class="row h-100">
               <div class="col border h-75 text-center" style="background: rgb(114, 230, 147);">
                 <p class="my-3"> {% raw %} {{ players }} {% endraw %} online player(s) </p>
                 <hr/>
-                <li class="m-auto py-3 text-dark" style="cursor: pointer;" v-for="member in connectedPlayers" @click="choosePlayer">
+                <li class="m-auto py-3 text-dark" style="cursor: pointer;" v-for="(member,index) in connectedPlayers" @click="choosePlayer(index)">
                   {% raw %} {{ member }} {% endraw %}
                 </li>
               </div>
@@ -118,56 +110,7 @@
 	
 		listeners: function () 
 		{
-			console.log("1111111111",this.connectedPlayers);
-			console.log("333333333",this.username);
-			/*
-			if (confirm('Do you want to start a game of Tic Tac Toe with ' + message)) {
-			  this.otherPlayerName = message
-			  this.otherPlayerChannel = this.pusher.subscribe('private-' + this.otherPlayerName)
-			  this.otherPlayerChannel.bind('pusher:subscription_succeeded', () => {
-				this.otherPlayerChannel.trigger('client-game-started', this.username)
-			  })
-			  this.startGame(message)
-			} else {
-			  this.otherPlayerChannel = this.pusher.subscribe('private-' + message)
-			  this.otherPlayerChannel.bind('pusher:subscription_succeeded', () => {
-				this.otherPlayerChannel.trigger('client-game-declined', "")
-			  })
-			  this.gameDeclined()
-			}*/
-		  this.myChannel.bind('client-game-started', (message) => {
-			this.status = "Game started with " + message
-			this.$refs.gameboard.classList.remove('invisible');
-			this.firstPlayer = 1;
-			this.turn = 1;
-		  })
-
-		  this.myChannel.bind('client-game-declined', () => {
-			this.status = "Game declined"
-		  })
-
-		  this.myChannel.bind('client-new-move', (position) => {
-			this.$refs[position].innerText = this.firstPlayer ? 'O' : 'X'
-		  })
-
-		  this.myChannel.bind('client-your-turn', () => {
-			this.turn = 1;
-		  })
-
-		  this.myChannel.bind('client-box-update', (update) => {
-			this.boxes = update;
-		  })
-
-		  this.myChannel.bind('client-you-lost', () => {
-			this.gameLost();
-		  })
 		},
-			startGame:function(){
-				console.log("start game function");
-			},
-			gameLost:function(){
-				console.log("game lost function");
-			},
 			generateRandomName: function () {
 			  let text = 'Guest';
 			  let possible = '0123456789';
@@ -176,20 +119,18 @@
 			  }
 			  return text;
 			},
-
+			
+			playerAction:function()
+			{				
+			},
 			// Lets you choose a player to play as.
 			choosePlayer: function (e) 
 			{
-				console.log("222222222",this.connectedPlayers);
+				console.log("Player choose:",this.connectedPlayers[e]);
+				console.log(this.connectedPlayers)
+				this.playerAction("/picked",this.connectedPlayers[e])
 			},
-			// User declined to play
-			gameDeclined: function () {
-			  console.log("Game declined");
-			},
-			playerAction:function()
-			{
-				console.log("Player action function");
-			},	
+			
 		}
 		});
 </script>
